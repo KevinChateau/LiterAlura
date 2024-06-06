@@ -41,9 +41,10 @@ public class Principal {
                     """);
             int opcion = teclado.nextInt();
 
+
             switch (opcion) {
                 case 1:
-                    datos.resultados();
+                    datos.resultados().forEach(System.out::println);
                     break;
                 case 2:
                     break;
