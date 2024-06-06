@@ -1,17 +1,29 @@
 package com.kcastillo.LiterAlura.principal;
 
+import com.kcastillo.LiterAlura.models.DatosLibros;
+import com.kcastillo.LiterAlura.service.ConsumoAPI;
+import com.kcastillo.LiterAlura.service.ConvierteDatos;
+
 import java.util.Scanner;
 
 public class Principal {
 
     private Scanner teclado;
+    private final String URL_BASE = "https://gutendex.com/books/";
+    private ConsumoAPI consumoAPI;
+    private ConvierteDatos conversorJsonClass;
 
     public Principal() {
         teclado = new Scanner(System.in);
+        consumoAPI = new ConsumoAPI();
+        conversorJsonClass = new ConvierteDatos();
     }
 
     public void showMenu() {
         int exit = 0;
+
+        var json = consumoAPI.obtenerDatos(URL_BASE);
+        var datos = conversorJsonClass.obtenerDatos(json, DatosLibros.class);
 
         do {
             System.out.println("***** Bienvenido al MENU principal de la API Gutendex *****");
@@ -31,6 +43,7 @@ public class Principal {
 
             switch (opcion) {
                 case 1:
+                    datos.resultados();
                     break;
                 case 2:
                     break;
