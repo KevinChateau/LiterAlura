@@ -2,7 +2,6 @@ package com.kcastillo.LiterAlura.principal;
 
 import com.kcastillo.LiterAlura.operations.Operations;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -47,13 +46,13 @@ public class Principal {
                         operations.getBookByTitle();
                         break;
                     case 2:
-                        operations.printAllRegistredBooks();
+                        operations.printAllRegisteredBooks();
                         break;
                     case 3:
                         operations.printBooksByLanguage();
                         break;
                     case 4:
-                        operations.getAllRegistredAuthors();
+                        operations.getAllRegisteredAuthors();
                         break;
                     case 5:
                         break;

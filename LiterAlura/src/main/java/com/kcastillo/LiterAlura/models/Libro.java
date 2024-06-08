@@ -1,29 +1,26 @@
 package com.kcastillo.LiterAlura.models;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table(name = "libros")
-public class DatosLibro {
+public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
-    private DatosAutor autor;
+    @ManyToOne
+    private Autor autor;
     private String idiomas;
     private Double numeroDescargas;
 
-    public DatosLibro() {
+    public Libro() {
     }
 
-    public DatosLibro (DatosLibroRecord datosLibroRecord) {
+    public Libro(DatosLibroRecord datosLibroRecord) {
         this.titulo = datosLibroRecord.titulo();
-        this.autor = datosLibroRecord.autor().get(0); //Get only one author
+        this.autor = new Autor(datosLibroRecord.autor().get(0)); //Get only one author
         this.idiomas = datosLibroRecord.idiomas().get(0); //Get first language
         this.numeroDescargas = datosLibroRecord.numeroDescargas();
     }
@@ -37,11 +34,11 @@ public class DatosLibro {
         this.titulo = titulo;
     }
 
-    public DatosAutor getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
-    public void setAutor(DatosAutor autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 

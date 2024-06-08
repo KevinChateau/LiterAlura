@@ -1,6 +1,6 @@
 package com.kcastillo.LiterAlura.operations;
 
-import com.kcastillo.LiterAlura.models.DatosLibro;
+import com.kcastillo.LiterAlura.models.Libro;
 import com.kcastillo.LiterAlura.models.DatosLibroRecord;
 import com.kcastillo.LiterAlura.models.DatosLibros;
 import com.kcastillo.LiterAlura.service.ConsumoAPI;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Operations {
 
@@ -18,7 +17,7 @@ public class Operations {
     private ConsumoAPI consumoAPI;
     private ConvierteDatos conversorJsonClass;
     private Scanner scanner;
-    private List<DatosLibro> myBooks;
+    private List<Libro> myBooks;
 
 
     public Operations() {
@@ -54,7 +53,7 @@ public class Operations {
         if (bookRecord.isPresent()) {
             System.out.println("-------------------------------");
             System.out.println("Libro encontrado: ");
-            DatosLibro myBook = new DatosLibro(bookRecord.get());
+            Libro myBook = new Libro(bookRecord.get());
             System.out.println(myBook);
             System.out.println(myBook.getAutor()); //******
             System.out.println("¿Desea registrar este libro [s/n]?");
@@ -69,7 +68,7 @@ public class Operations {
         }
     }
 
-    public void printAllRegistredBooks(){
+    public void printAllRegisteredBooks(){
         myBooks.forEach(System.out::println);
     }
 
@@ -77,8 +76,8 @@ public class Operations {
         //DB is needed to make this method
     }
 
-    public void getAllRegistredAuthors() {
+    public void getAllRegisteredAuthors() {
         //Using lists
-        myBooks.forEach(datosLibro -> System.out.println(datosLibro.getAutor() + " - " + datosLibro.getTitulo()));
+        myBooks.forEach(libro -> System.out.println(libro.getAutor() + " - " + libro.getTitulo()));
     }
 }

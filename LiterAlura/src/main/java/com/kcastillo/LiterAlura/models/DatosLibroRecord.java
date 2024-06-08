@@ -8,7 +8,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true) //To ignore properties not mapping
 public record DatosLibroRecord(
         @JsonAlias("title") String titulo,
-        @JsonAlias("authors") List<DatosAutor> autor,
+        @JsonAlias("authors") List<DatosAutorRecord> autor,
         @JsonAlias("languages") List<String> idiomas,
         @JsonAlias("download_count") Double numeroDescargas
         ) {
