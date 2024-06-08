@@ -1,12 +1,18 @@
 package com.kcastillo.LiterAlura.models;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Entity
+@Table(name = "libros")
 public class DatosLibro {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String titulo;
     private DatosAutor autor;
     private String idiomas;

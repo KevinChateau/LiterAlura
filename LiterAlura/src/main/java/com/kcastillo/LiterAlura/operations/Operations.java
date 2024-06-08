@@ -76,4 +76,9 @@ public class Operations {
     public void printBooksByLanguage() {
         //DB is needed to make this method
     }
+
+    public void getAllRegistredAuthors() {
+        //Using lists
+        myBooks.forEach(datosLibro -> System.out.println(datosLibro.getAutor() + " - " + datosLibro.getTitulo()));
+    }
 }
