@@ -53,6 +53,7 @@ public class Principal {
                         operations.printBooksByLanguage();
                         break;
                     case 4:
+                        operations.getAllBooksAPI().forEach(System.out::println);
                         break;
                     case 5:
                         break;

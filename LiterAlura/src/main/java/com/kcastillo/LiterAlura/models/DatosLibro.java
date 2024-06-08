@@ -3,11 +3,12 @@ package com.kcastillo.LiterAlura.models;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DatosLibro {
 
     private String titulo;
-    private List<DatosAutor> autor;
+    private DatosAutor autor;
     private String idiomas;
     private Double numeroDescargas;
 
@@ -16,10 +17,11 @@ public class DatosLibro {
 
     public DatosLibro (DatosLibroRecord datosLibroRecord) {
         this.titulo = datosLibroRecord.titulo();
-        this.autor = datosLibroRecord.autor();
+        this.autor = datosLibroRecord.autor().get(0); //Get only one author
         this.idiomas = datosLibroRecord.idiomas().get(0); //Get first language
         this.numeroDescargas = datosLibroRecord.numeroDescargas();
     }
+
 
     public String getTitulo() {
         return titulo;
@@ -29,11 +31,11 @@ public class DatosLibro {
         this.titulo = titulo;
     }
 
-    public List<DatosAutor> getAutor() {
+    public DatosAutor getAutor() {
         return autor;
     }
 
-    public void setAutor(List<DatosAutor> autor) {
+    public void setAutor(DatosAutor autor) {
         this.autor = autor;
     }
 

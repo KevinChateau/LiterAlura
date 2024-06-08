@@ -42,23 +42,24 @@ public class Operations {
         //Replace spaces in "+"
         var json = consumoAPI.obtenerDatos(URL_BASE + "?search=" + title.replace(" ","+"));
         var datos = conversorJsonClass.obtenerDatos(json, DatosLibros.class);
-//        System.out.println(datos);
-//        System.out.println(datos.resultados());
-
-        //Convert each DatosLibrosRecord to DatosLibro
-        List<DatosLibro> mislibros = datos.resultados().stream().map(DatosLibro::new).toList();
+        System.out.println(datos);
+//        System.out.println(datos.resultados().get(0).autor());
+//        System.out.println(datos.resultados().get(0).autor().get(0));
 
         //To find the first book that contains user title
-        Optional<DatosLibro> book = mislibros.stream()
-                .filter(datosLibroRecord -> datosLibroRecord.getTitulo().toLowerCase().contains(title.toLowerCase()))
+        Optional<DatosLibroRecord> bookRecord = datos.resultados().stream()
+                .filter(datosLibroRecord -> datosLibroRecord.titulo().toLowerCase().contains(title.toLowerCase()))
                 .findFirst();
-        if (book.isPresent()) {
+
+        if (bookRecord.isPresent()) {
             System.out.println("-------------------------------");
             System.out.println("Libro encontrado: ");
-            System.out.println(book.get());
+            DatosLibro myBook = new DatosLibro(bookRecord.get());
+            System.out.println(myBook);
+            System.out.println(myBook.getAutor()); //******
             System.out.println("¿Desea registrar este libro [s/n]?");
             if(scanner.nextLine().equalsIgnoreCase("s")){
-                myBooks.add(book.get());
+                myBooks.add(myBook);
                 System.out.println("Libro registrado con éxito");
             }
 
