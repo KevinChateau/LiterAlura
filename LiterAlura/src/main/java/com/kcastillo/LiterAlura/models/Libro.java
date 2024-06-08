@@ -12,7 +12,7 @@ public class Libro {
     private String titulo;
     @ManyToOne
     private Autor autor;
-    private String idiomas;
+    private String idioma;
     private Double numeroDescargas;
 
     public Libro() {
@@ -21,7 +21,7 @@ public class Libro {
     public Libro(DatosLibroRecord datosLibroRecord) {
         this.titulo = datosLibroRecord.titulo();
         this.autor = new Autor(datosLibroRecord.autor().get(0)); //Get only one author
-        this.idiomas = datosLibroRecord.idiomas().get(0); //Get first language
+        this.idioma = datosLibroRecord.idiomas().get(0); //Get first language
         this.numeroDescargas = datosLibroRecord.numeroDescargas();
     }
 
@@ -43,11 +43,11 @@ public class Libro {
     }
 
     public String getIdiomas() {
-        return idiomas;
+        return idioma;
     }
 
     public void setIdiomas(String idiomas) {
-        this.idiomas = idiomas;
+        this.idioma = idiomas;
     }
 
     public Double getNumeroDescargas() {
@@ -63,7 +63,7 @@ public class Libro {
         return "DatosLibro{" +
                 "titulo='" + titulo + '\'' +
                 ", autor=" + autor +
-                ", idiomas='" + idiomas + '\'' +
+                ", idiomas='" + idioma + '\'' +
                 ", numeroDescargas=" + numeroDescargas +
                 '}';
     }

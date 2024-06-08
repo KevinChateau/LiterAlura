@@ -14,8 +14,8 @@ public class Autor {
     private String nombre;
     private String fechaDeNacimiento;
     private String fechaDeFallecimient;
-    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Libro> libro;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Libro> libros;
 
 
     public Autor(DatosAutorRecord datosAutorRecord) {
@@ -57,12 +57,12 @@ public class Autor {
     }
 
     public List<Libro> getLibro() {
-        return libro;
+        return libros;
     }
 
     public void setLibro(List<Libro> libro) {
         libro.forEach(l-> l.setAutor(this));
-        this.libro = libro;
+        this.libros = libro;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Autor {
                 ", nombre='" + nombre + '\'' +
                 ", fechaDeNacimiento='" + fechaDeNacimiento + '\'' +
                 ", fechaDeFallecimient='" + fechaDeFallecimient + '\'' +
-                ", libro=" + libro +
+                ", libro=" + libros +
                 '}';
     }
 }
