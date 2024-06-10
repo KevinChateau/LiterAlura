@@ -25,7 +25,6 @@ public class Libro {
         this.titulo = datosLibroRecord.titulo();
         //Falta verificar que el autor no sea null
         this.autor = new Autor(datosLibroRecord.autor().get(0)); //Get only one author
-//        this.autor.setLibro(this);
         this.idioma = datosLibroRecord.idiomas().get(0); //Get first language
         this.numeroDescargas = datosLibroRecord.numeroDescargas();
     }
@@ -45,9 +44,6 @@ public class Libro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
-//        if (autor != null && autor.getLibro() != this) {
-//            autor.setLibro(this); //Evita la recursión
-//        }
     }
 
     public String getIdiomas() {

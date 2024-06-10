@@ -17,7 +17,6 @@ public class Autor {
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinColumn(name = "libros_id", referencedColumnName = "id")
-//    @JoinColumn(name = "libros_id")
     private List<Libro> libros;
 
     public Autor() {
@@ -65,15 +64,6 @@ public class Autor {
         return libros;
     }
 
-   /* public void setLibro(Libro libro, boolean actualizarRelacion) {
-//        libro.forEach(l-> l.setAutor(this));
-        this.libros = libro;
-        //Para el caso de un solo libro
-        if (actualizarRelacion && libro != null && libro.getAutor() != this) {
-            libro.setAutor(this);
-        }
-
-    }*/
 
     public void setLibro(List<Libro> libros) {
 //        libro.forEach(l-> l.setAutor(this));

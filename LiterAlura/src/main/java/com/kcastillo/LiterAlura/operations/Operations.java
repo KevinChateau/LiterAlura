@@ -1,5 +1,6 @@
 package com.kcastillo.LiterAlura.operations;
 
+import com.kcastillo.LiterAlura.models.Autor;
 import com.kcastillo.LiterAlura.models.Libro;
 import com.kcastillo.LiterAlura.models.DatosLibroRecord;
 import com.kcastillo.LiterAlura.models.DatosLibros;
@@ -21,15 +22,17 @@ public class Operations {
     private Scanner scanner;
     private LibroRepository bookRepository;
     private AutorRepository autorRepository;
-    private List<Libro> myBooks;
+    private List<Libro> myBooks = new ArrayList<>();;
+    private List<Autor> myAuthors = new ArrayList<>();;
 
     public Operations(LibroRepository bookRepository, AutorRepository autorRepository) {
         consumoAPI = new ConsumoAPI();
         conversorJsonClass = new ConvierteDatos();
         scanner = new Scanner(System.in);
-        myBooks = new ArrayList<>();
         this.bookRepository = bookRepository;
         this.autorRepository = autorRepository;
+        myBooks = bookRepository.findAll();
+        myAuthors = autorRepository.findAll();
     }
 
     public List<DatosLibroRecord> getAllBooksAPI() {
@@ -60,21 +63,24 @@ public class Operations {
             System.out.println("Libro encontrado: ");
             Libro myBook = new Libro(bookRecord.get());
 
-            /*if(myBook.getAutor() != null){
-                Autor autorGuardado = autorRepository.save(myBook.getAutor());
-                myBook.setAutor(autorGuardado);
-//                myBook.getAutor().setLibro(myBook,false); //Asegura la relación bidireccional sin recursión
-            }*/
-
             System.out.println(myBook);
-//            myBook.getAutor().setLibro(myBook); // ******
             System.out.println(myBook.getAutor()); //******
             System.out.println("¿Desea registrar este libro [s/n]?");
             if(scanner.nextLine().equalsIgnoreCase("s")){
-//                Autor myAuthor = myBook.getAutor();
-                myBooks.add(myBook);
-//                saveLibroWithAutor(myBook);
-                autorRepository.save(myBook.getAutor());
+//                myBooks.add(myBook);
+
+                //Finding if author of the finding book exist in DB
+                Optional<Autor> myAutor = myAuthors.stream()
+                        .filter(autor -> autor.getNombre().toLowerCase().contains(myBook.getAutor().getNombre().toLowerCase()))
+                        .findFirst();
+                if (myAutor.isPresent()) {
+                    System.out.println("Este autor ya existe en la base de datos");
+                    myBook.setAutor(myAutor.get()); //Set existent author
+                } else {
+                    System.out.println("El autor no existe en la base de datos");
+                    autorRepository.save(myBook.getAutor()); //Save new author
+                }
+
                 bookRepository.save(myBook);
                 System.out.println("Libro registrado con éxito");
             }
@@ -85,16 +91,6 @@ public class Operations {
         }
     }
 
-    /*@Transactional
-    public void saveLibroWithAutor(Libro libro) {
-        if (libro.getAutor() != null) {
-            // Guardar y obtener una referencia gestionada del autor
-            Autor savedAutor = autorRepository.save(libro.getAutor());
-            libro.setAutor(savedAutor);
-        }
-        bookRepository.save(libro);
-    }*/
-
 
     public void printAllRegisteredBooks(){
         myBooks.forEach(System.out::println);
@@ -102,10 +98,14 @@ public class Operations {
 
     public void printBooksByLanguage() {
         //DB is needed to make this method
+        //Execute with queries
     }
 
     public void getAllRegisteredAuthors() {
         //Using lists
-        myBooks.forEach(libro -> System.out.println(libro.getAutor() + " - " + libro.getTitulo()));
+//        myBooks.forEach(libro -> System.out.println(libro.getAutor() + " - " + libro.getTitulo()));
+
+        //Using DB
+        myAuthors.forEach(System.out::println);
     }
 }
