@@ -10,7 +10,10 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
-    @ManyToOne
+//    @OneToOne(mappedBy="libros",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "autor_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "autor_id")
     private Autor autor;
     private String idioma;
     private Double numeroDescargas;
@@ -20,7 +23,9 @@ public class Libro {
 
     public Libro(DatosLibroRecord datosLibroRecord) {
         this.titulo = datosLibroRecord.titulo();
+        //Falta verificar que el autor no sea null
         this.autor = new Autor(datosLibroRecord.autor().get(0)); //Get only one author
+//        this.autor.setLibro(this);
         this.idioma = datosLibroRecord.idiomas().get(0); //Get first language
         this.numeroDescargas = datosLibroRecord.numeroDescargas();
     }
@@ -40,6 +45,9 @@ public class Libro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+//        if (autor != null && autor.getLibro() != this) {
+//            autor.setLibro(this); //Evita la recursión
+//        }
     }
 
     public String getIdiomas() {
@@ -60,9 +68,10 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "DatosLibro{" +
+        return "Libro{" +
+                "id='" + id + '\'' +
                 "titulo='" + titulo + '\'' +
-                ", autor=" + autor +
+                ", autor=" + autor.getNombre() +
                 ", idiomas='" + idioma + '\'' +
                 ", numeroDescargas=" + numeroDescargas +
                 '}';

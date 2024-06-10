@@ -1,6 +1,8 @@
 package com.kcastillo.LiterAlura.principal;
 
 import com.kcastillo.LiterAlura.operations.Operations;
+import com.kcastillo.LiterAlura.repository.AutorRepository;
+import com.kcastillo.LiterAlura.repository.LibroRepository;
 
 import java.util.Scanner;
 
@@ -10,9 +12,9 @@ public class Principal {
     private Operations operations;
 
 
-    public Principal() {
+    public Principal(LibroRepository bookRepository, AutorRepository autorRepository) {
         teclado = new Scanner(System.in);
-        operations = new Operations();
+        operations = new Operations(bookRepository, autorRepository);
     }
 
     public void showMenu() {
