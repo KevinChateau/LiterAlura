@@ -3,3 +3,5 @@
 Este proyecto integra los siguientes conocimientos:
 * Integración de la API Gutendex para recolectar información sobre libros.
 * 
+
+[Descripción](/Imagenes/)
